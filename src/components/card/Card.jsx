@@ -10,10 +10,6 @@ const Card = props => {
     " hrs " +
     moment(trip.startTime).format("DD/MM/YYYY");
 
-  const SelectCard = () => {
-    OnClick(trip);
-  };
-
   return (
     <div className="card" onClick={() => OnClick(trip)}>
       <h1 className="drivername">{trip.driverName}</h1>

@@ -11,7 +11,7 @@ import IconRed from "../../assets/red-dot.png";
 import IconGreen from "../../assets/green-dot.png";
 import IconYellow from "../../assets/yellow-dot.png";
 import { getStop } from "../../shared/shared";
-import moment from "moment";
+import Moment from "moment";
 
 const Map = props => {
   const { selected } = props;
@@ -21,21 +21,13 @@ const Map = props => {
 
   let centerMap = { lat: 41.2851, lng: 2.1734 };
 
-  const centerMapChange = points => {
-    let newLatitude = (points[0].lat + points[points.length - 1].lat) / 2;
-    let newLongitude = (points[0].lng + points[points.length - 1].lng) / 2;
-    return { lat: newLatitude, lng: newLongitude };
-  };
-
-  const changeCord = x => {
+  const ChangeCord = x => {
     return { lat: x._latitude, lng: x._longitude };
   };
 
-  const display = () => {
+  const DisplayRoutes = () => {
     const decodePolyline = require("decode-google-map-polyline");
     const routeDecoded = decodePolyline(selected.route);
-    centerMapChange(routeDecoded);
-
     const showStopInfo = id => {
       getStop(id).then(response => setStop(response.data));
       setInfoOpen(true);
@@ -50,25 +42,24 @@ const Map = props => {
           position={routeDecoded[routeDecoded.length - 1]}
         />
         {selected.stops.length > 1 &&
-          selected.stops.map(x => (
+          selected.stops.map((x, i) => (
             <Marker
+              key={i}
               icon={IconYellow}
               onClick={() => showStopInfo(x.id)}
-              position={changeCord(x.point)}
-            >
-              {console.log(x.id)}
-            </Marker>
+              position={ChangeCord(x.point)}
+            />
           ))}
         ;
         {infoOpen && stop.point && (
           <InfoWindow
             onCloseClick={() => setInfoOpen(false)}
-            position={changeCord(stop.point)}
+            position={ChangeCord(stop.point)}
           >
             <div>
               <p>{stop.userName}</p>
               <p>{stop.address}</p>
-              <p>{moment(stop.stopTime).format("HH:mm")}</p>
+              <p>{Moment(stop.stopTime).format("HH:mm")}</p>
               <p>{stop.paid ? "Paid" : "Non-paid"}</p>
             </div>
           </InfoWindow>
@@ -90,7 +81,7 @@ const Map = props => {
           center={centerMap}
           zoom={8}
         >
-          {selected && display()}
+          {selected && DisplayRoutes()}
         </GoogleMap>
       </LoadScript>
     </div>

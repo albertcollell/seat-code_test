@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import "./App.scss";
 import { getTrips } from "./shared/shared.jsx";
 import Column from "./components/column/Column";
@@ -20,13 +19,11 @@ export const App = () => {
   return (
     <div className="App">
       {trips.length == 0 ? (
-        <a>NOTHING</a>
+        <a>LOADING....</a>
       ) : (
         <Column trips={trips} OnClick={OnClick} />
       )}
       <Map selected={selected} />
-      {console.log(trips)}
-      {console.log(selected)}
     </div>
   );
 };
