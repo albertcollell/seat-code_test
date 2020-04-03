@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
-import "./App.css";
-import getTrips from "./shared/shared.jsx";
+import "./App.scss";
+import { getTrips } from "./shared/shared.jsx";
+import Column from "./components/column/Column";
+import Map from "./components/map/Map";
 
 export const App = () => {
   const [trips, setTrips] = useState([]);
+  const [selected, setSelected] = useState();
+
+  const OnClick = id => {
+    setSelected(id);
+  };
 
   useEffect(() => {
     getTrips().then(response => setTrips(response.data));
@@ -12,26 +19,14 @@ export const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-
-        {trips.length == 0 ? (
-          <a>NOTHING</a>
-        ) : (
-          trips.map(x => <li>{x.driverName}</li>)
-        )}
-      </header>
+      {trips.length == 0 ? (
+        <a>NOTHING</a>
+      ) : (
+        <Column trips={trips} OnClick={OnClick} />
+      )}
+      <Map selected={selected} />
+      {console.log(trips)}
+      {console.log(selected)}
     </div>
   );
 };

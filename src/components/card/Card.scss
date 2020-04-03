@@ -1,0 +1,12 @@
+.card {
+  border: 1px;
+  width: auto;
+  background-color: white;
+  padding: 5%;
+  .drivername {
+    font-size: 20px;
+  }
+}
+.card:hover {
+  background-color: grey;
+}
