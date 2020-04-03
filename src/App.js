@@ -1,8 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import getTrips from "./shared/shared.jsx";
 
-function App() {
+export const App = () => {
+  const [trips, setTrips] = useState([]);
+
+  useEffect(() => {
+    getTrips().then(response => setTrips(response.data));
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +25,15 @@ function App() {
         >
           Learn React
         </a>
+
+        {trips.length == 0 ? (
+          <a>NOTHING</a>
+        ) : (
+          trips.map(x => <li>{x.driverName}</li>)
+        )}
       </header>
     </div>
   );
-}
+};
 
 export default App;
