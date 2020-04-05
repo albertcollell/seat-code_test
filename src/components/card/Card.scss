@@ -1,12 +1,26 @@
 .card {
-  border: 1px;
+  border: 10px;
   width: auto;
   background-color: white;
   padding: 5%;
   .drivername {
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 900;
+    margin: 0px 0px 10px 0px;
+  }
+  .tripstatus {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .description {
+    font-size: 16px;
+    margin: 0px;
+  }
+  .date {
+    font-size: 12px;
+    margin: 0px;
   }
 }
 .card:hover {
-  background-color: grey;
+  background-color: rgba(128, 128, 128, 0.2);
 }

@@ -8,18 +8,20 @@ export const App = () => {
   const [trips, setTrips] = useState([]);
   const [selected, setSelected] = useState();
 
-  const OnClick = id => {
-    setSelected(id);
-  };
-
+  // Calls the Trips once we start the Web App
   useEffect(() => {
     getTrips().then(response => setTrips(response.data));
   }, []);
 
+  // It change the state of the selected trip (is sended to the Card as a prop)
+  const OnClick = trip => {
+    setSelected(trip);
+  };
+
   return (
     <div className="App">
-      {trips.length == 0 ? (
-        <a>LOADING....</a>
+      {trips.length === 0 ? (
+        <p className="loading">LOADING....</p>
       ) : (
         <Column trips={trips} OnClick={OnClick} />
       )}
