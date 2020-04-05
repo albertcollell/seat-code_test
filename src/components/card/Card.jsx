@@ -5,6 +5,7 @@ import moment from "moment";
 const Card = props => {
   const { trip, OnClick } = props;
 
+  // Changes the date format
   const date =
     moment(trip.startTime).format("HH:mm") +
     " hrs " +
@@ -12,10 +13,10 @@ const Card = props => {
 
   return (
     <div className="card" onClick={() => OnClick(trip)}>
-      <h1 className="drivername">{trip.driverName}</h1>
-      <p>{trip.status}</p>
-      <p>{trip.description}</p>
-      <p>{date}</p>
+      <p className="drivername">{trip.driverName}</p>
+      <p className="description">{trip.description}</p>
+      <p className="date">{date}</p>
+      <p className="tripstatus">{trip.status}</p>
     </div>
   );
 };
